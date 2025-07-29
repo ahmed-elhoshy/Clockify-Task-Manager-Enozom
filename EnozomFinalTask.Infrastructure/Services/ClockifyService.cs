@@ -26,81 +26,74 @@ public class ClockifyService : IClockifyService
         _logger = logger;
         _apiKey = configuration["Clockify:ApiKey"] ?? throw new InvalidOperationException("Clockify API key not configured");
         
-        // Fix: Use DefaultRequestHeaders instead of Add
         _httpClient.DefaultRequestHeaders.Clear();
         _httpClient.DefaultRequestHeaders.Add("X-Api-Key", _apiKey);
     }
 
     public async Task SyncDataToClockifyAsync()
     {
-        try
+        _logger.LogInformation("Starting Clockify sync...");
+
+        var workspaceId = await GetWorkspaceIdAsync();
+        if (string.IsNullOrEmpty(workspaceId))
         {
-            _logger.LogInformation("Starting Clockify sync...");
-
-            // Get workspace ID (you might want to store this in configuration)
-            var workspaceId = await GetWorkspaceIdAsync();
-            if (string.IsNullOrEmpty(workspaceId))
-            {
-                throw new InvalidOperationException("No workspace found in Clockify");
-            }
-
-            // Get all data from database
-            var users = await _unitOfWork.Users.GetAllAsync();
-            var projects = await _unitOfWork.Projects.GetAllAsync();
-            var tasks = await _unitOfWork.Tasks.GetAllAsync();
-            var timeEntries = await _unitOfWork.TimeEntries.GetAllAsync();
-
-            // Sync users to Clockify
-            foreach (var user in users)
-            {
-                await CreateOrUpdateUserInClockifyAsync(workspaceId, user);
-            }
-
-            // Sync projects to Clockify
-            foreach (var project in projects)
-            {
-                await CreateOrUpdateProjectInClockifyAsync(workspaceId, project);
-            }
-
-            // Sync tasks to Clockify
-            foreach (var task in tasks)
-            {
-                await CreateOrUpdateTaskInClockifyAsync(workspaceId, task);
-            }
-
-            // Sync time entries to Clockify
-            foreach (var timeEntry in timeEntries)
-            {
-                await CreateTimeEntryInClockifyAsync(workspaceId, timeEntry);
-            }
-
-            _logger.LogInformation("Clockify sync completed successfully");
+            throw new InvalidOperationException("No workspace found in Clockify");
         }
-        catch (Exception ex)
+
+        // Sync projects first
+        var projects = await _unitOfWork.Projects.GetAllAsync();
+        foreach (var project in projects)
         {
-            _logger.LogError(ex, "Error syncing data to Clockify");
-            throw;
+            await CreateOrUpdateProjectInClockifyAsync(workspaceId, project);
         }
+
+        // Then sync time entries  
+        var timeEntries = await _unitOfWork.TimeEntries.GetAllAsync();
+        foreach (var timeEntry in timeEntries)
+        {
+            await CreateTimeEntryInClockifyAsync(workspaceId, timeEntry);
+        }
+
+        _logger.LogInformation("Clockify sync completed successfully");
     }
 
     private async Task<string?> GetWorkspaceIdAsync()
     {
         var response = await _httpClient.GetAsync($"{_baseUrl}/workspaces");
-        if (response.IsSuccessStatusCode)
-        {
-            var content = await response.Content.ReadAsStringAsync();
-            var workspaces = JsonConvert.DeserializeObject<List<dynamic>>(content);
-            return workspaces?.FirstOrDefault()?.id?.ToString();
-        }
-        return null;
+        var content = await response.Content.ReadAsStringAsync();
+        var workspaces = JsonConvert.DeserializeObject<List<dynamic>>(content);
+        return workspaces?.FirstOrDefault()?.id?.ToString();
     }
 
     private async Task CreateOrUpdateUserInClockifyAsync(string workspaceId, Domain.Entities.User user)
     {
-        // This is a simplified implementation
-        // In a real scenario, you'd need to handle user creation/update logic
-        _logger.LogInformation($"Syncing user: {user.FullName}");
-        await Task.Delay(100); // Simulate API call
+        try
+        {
+            
+            var response = await _httpClient.GetAsync($"{_baseUrl}/workspaces/{workspaceId}/users");
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var users = JsonConvert.DeserializeObject<List<dynamic>>(content);
+                
+                // Check if user already exists by name (you'd typically use email)
+                var existingUser = users?.FirstOrDefault(u => u.name?.ToString() == user.FullName);
+                
+                if (existingUser != null)
+                {
+                    _logger.LogInformation($"User {user.FullName} already exists in Clockify workspace");
+                }
+                else
+                {
+                    _logger.LogWarning($"User {user.FullName} not found in Clockify workspace. Users must be invited by email first.");
+                  
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error checking user in Clockify: {user.FullName}");
+        }
     }
 
     private async Task CreateOrUpdateProjectInClockifyAsync(string workspaceId, Domain.Entities.Project project)
@@ -109,53 +102,51 @@ public class ClockifyService : IClockifyService
         {
             name = project.Name,
             isPublic = true,
-            color = "#000000"
+            color = "#4285f4",
+            billable = true
         };
 
         var json = JsonConvert.SerializeObject(projectData);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
-
         var response = await _httpClient.PostAsync($"{_baseUrl}/workspaces/{workspaceId}/projects", content);
         
         if (response.IsSuccessStatusCode)
         {
-            _logger.LogInformation($"Project created in Clockify: {project.Name}");
-        }
-        else
-        {
-            _logger.LogWarning($"Failed to create project in Clockify: {project.Name}");
+            _logger.LogInformation($"Project synced: {project.Name}");
         }
     }
 
-    private async Task CreateOrUpdateTaskInClockifyAsync(string workspaceId, Domain.Entities.TaskItem task)
-    {
-        // This is a simplified implementation
-        // In a real scenario, you'd need to handle task creation/update logic
-        _logger.LogInformation($"Syncing task: {task.Title}");
-        await Task.Delay(100); // Simulate API call
-    }
+
 
     private async Task CreateTimeEntryInClockifyAsync(string workspaceId, Domain.Entities.TimeEntry timeEntry)
     {
+        var task = await _unitOfWork.Tasks.GetByIdAsync(timeEntry.TaskItemId);
+        var project = await _unitOfWork.Projects.GetByIdAsync(task.ProjectId);
+        var user = await _unitOfWork.Users.GetByIdAsync(timeEntry.UserId);
+
+        // Get Clockify project ID
+        var projectsResponse = await _httpClient.GetAsync($"{_baseUrl}/workspaces/{workspaceId}/projects");
+        var projectsContent = await projectsResponse.Content.ReadAsStringAsync();
+        var projects = JsonConvert.DeserializeObject<List<dynamic>>(projectsContent);
+        var clockifyProject = projects?.FirstOrDefault(p => p.name?.ToString() == project.Name);
+        var clockifyProjectId = clockifyProject?.id?.ToString();
+
         var timeEntryData = new
         {
-            start = timeEntry.Start.ToString("yyyy-MM-ddTHH:mm:ssZ"),
-            end = timeEntry.End.ToString("yyyy-MM-ddTHH:mm:ssZ"),
-            description = $"Time entry for task {timeEntry.TaskItemId}"
+            start = timeEntry.Start.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
+            end = timeEntry.End.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
+            projectId = clockifyProjectId,
+            description = $"{task.Title} - {user.FullName}",
+            billable = true
         };
 
         var json = JsonConvert.SerializeObject(timeEntryData);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
-
         var response = await _httpClient.PostAsync($"{_baseUrl}/workspaces/{workspaceId}/time-entries", content);
         
         if (response.IsSuccessStatusCode)
         {
-            _logger.LogInformation($"Time entry created in Clockify for task {timeEntry.TaskItemId}");
-        }
-        else
-        {
-            _logger.LogWarning($"Failed to create time entry in Clockify for task {timeEntry.TaskItemId}");
+            _logger.LogInformation($"Time entry synced: {task.Title}");
         }
     }
 } 
