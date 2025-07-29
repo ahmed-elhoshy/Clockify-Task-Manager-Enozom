@@ -1,0 +1,9 @@
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Domain\bin\Debug\net8.0\EnozomFinalTask.Domain.deps.json
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Domain\bin\Debug\net8.0\EnozomFinalTask.Domain.dll
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Domain\bin\Debug\net8.0\EnozomFinalTask.Domain.pdb
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Domain\obj\Debug\net8.0\EnozomFinalTask.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Domain\obj\Debug\net8.0\EnozomFinalTask.Domain.csproj.CoreCompileInputs.cache
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Domain\obj\Debug\net8.0\EnozomFinalTask.Domain.dll
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Domain\obj\Debug\net8.0\refint\EnozomFinalTask.Domain.dll
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Domain\obj\Debug\net8.0\EnozomFinalTask.Domain.pdb
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Domain\obj\Debug\net8.0\ref\EnozomFinalTask.Domain.dll

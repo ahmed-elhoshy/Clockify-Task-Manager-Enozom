@@ -1,0 +1,32 @@
+[
+  {
+    "ContainingType": "EnozomFinalTask.Controllers.ExportController",
+    "Method": "ExportTimeEntries",
+    "RelativePath": "api/Export",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EnozomFinalTask.Controllers.InitController",
+    "Method": "SeedSampleData",
+    "RelativePath": "api/Init/sample-data",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EnozomFinalTask.Controllers.SyncController",
+    "Method": "SyncToClockify",
+    "RelativePath": "api/Sync/clockify",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

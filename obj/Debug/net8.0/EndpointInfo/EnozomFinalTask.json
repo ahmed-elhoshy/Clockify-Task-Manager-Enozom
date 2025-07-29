@@ -1,0 +1,46 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "EnozomFinalTask",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Export": {
+      "get": {
+        "tags": [
+          "Export"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Init/sample-data": {
+      "post": {
+        "tags": [
+          "Init"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Sync/clockify": {
+      "post": {
+        "tags": [
+          "Sync"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": { }
+}

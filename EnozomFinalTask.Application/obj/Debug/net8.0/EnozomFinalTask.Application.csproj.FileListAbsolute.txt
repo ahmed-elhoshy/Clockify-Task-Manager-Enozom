@@ -1,0 +1,13 @@
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\bin\Debug\net8.0\EnozomFinalTask.Application.deps.json
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\bin\Debug\net8.0\EnozomFinalTask.Application.dll
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\bin\Debug\net8.0\EnozomFinalTask.Application.pdb
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\bin\Debug\net8.0\EnozomFinalTask.Domain.dll
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\bin\Debug\net8.0\EnozomFinalTask.Domain.pdb
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\obj\Debug\net8.0\EnozomFinalTask.Application.csproj.AssemblyReference.cache
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\obj\Debug\net8.0\EnozomFinalTask.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\obj\Debug\net8.0\EnozomFinalTask.Application.csproj.CoreCompileInputs.cache
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\obj\Debug\net8.0\EnozomFi.26D76926.Up2Date
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\obj\Debug\net8.0\EnozomFinalTask.Application.dll
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\obj\Debug\net8.0\refint\EnozomFinalTask.Application.dll
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\obj\Debug\net8.0\EnozomFinalTask.Application.pdb
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\obj\Debug\net8.0\ref\EnozomFinalTask.Application.dll
