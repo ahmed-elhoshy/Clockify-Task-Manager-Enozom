@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\kolya\\iti\\EnozomFinalTask\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D198A298-D3C4-419A-9047-BBE8BAAD926D}|EnozomFinalTask.Infrastructure\\EnozomFinalTask.Infrastructure.csproj|d:\\kolya\\iti\\enozomfinaltask\\enozomfinaltask.infrastructure\\services\\clockifyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D198A298-D3C4-419A-9047-BBE8BAAD926D}|EnozomFinalTask.Infrastructure\\EnozomFinalTask.Infrastructure.csproj|solutionrelative:enozomfinaltask.infrastructure\\services\\clockifyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D198A298-D3C4-419A-9047-BBE8BAAD926D}|EnozomFinalTask.Infrastructure\\EnozomFinalTask.Infrastructure.csproj|d:\\kolya\\iti\\enozomfinaltask\\enozomfinaltask.infrastructure\\services\\exportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D198A298-D3C4-419A-9047-BBE8BAAD926D}|EnozomFinalTask.Infrastructure\\EnozomFinalTask.Infrastructure.csproj|solutionrelative:enozomfinaltask.infrastructure\\services\\exportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -29,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{D77447FE-40BE-468A-BA56-4FF0EB181BDD}|EnozomFinalTask.Application\\EnozomFinalTask.Application.csproj|d:\\kolya\\iti\\enozomfinaltask\\enozomfinaltask.application\\services\\iclockifyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D77447FE-40BE-468A-BA56-4FF0EB181BDD}|EnozomFinalTask.Application\\EnozomFinalTask.Application.csproj|solutionrelative:enozomfinaltask.application\\services\\iclockifyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D198A298-D3C4-419A-9047-BBE8BAAD926D}|EnozomFinalTask.Infrastructure\\EnozomFinalTask.Infrastructure.csproj|d:\\kolya\\iti\\enozomfinaltask\\enozomfinaltask.infrastructure\\services\\clockifyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D198A298-D3C4-419A-9047-BBE8BAAD926D}|EnozomFinalTask.Infrastructure\\EnozomFinalTask.Infrastructure.csproj|solutionrelative:enozomfinaltask.infrastructure\\services\\clockifyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D198A298-D3C4-419A-9047-BBE8BAAD926D}|EnozomFinalTask.Infrastructure\\EnozomFinalTask.Infrastructure.csproj|d:\\kolya\\iti\\enozomfinaltask\\enozomfinaltask.infrastructure\\dependencyinjection\\infrastructureservicecollectionextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -70,7 +70,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -78,7 +78,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ExportService.cs",
               "DocumentMoniker": "D:\\kolya\\iti\\EnozomFinalTask\\EnozomFinalTask.Infrastructure\\Services\\ExportService.cs",
               "RelativeDocumentMoniker": "EnozomFinalTask.Infrastructure\\Services\\ExportService.cs",
@@ -91,7 +91,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "UnitOfWork.cs",
               "DocumentMoniker": "D:\\kolya\\iti\\EnozomFinalTask\\EnozomFinalTask.Infrastructure\\Repositories\\UnitOfWork.cs",
               "RelativeDocumentMoniker": "EnozomFinalTask.Infrastructure\\Repositories\\UnitOfWork.cs",
@@ -99,12 +99,11 @@
               "RelativeToolTip": "EnozomFinalTask.Infrastructure\\Repositories\\UnitOfWork.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-29T12:01:44.708Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-29T12:01:44.708Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Repository.cs",
               "DocumentMoniker": "D:\\kolya\\iti\\EnozomFinalTask\\EnozomFinalTask.Infrastructure\\Repositories\\Repository.cs",
               "RelativeDocumentMoniker": "EnozomFinalTask.Infrastructure\\Repositories\\Repository.cs",
@@ -112,12 +111,11 @@
               "RelativeToolTip": "EnozomFinalTask.Infrastructure\\Repositories\\Repository.cs",
               "ViewState": "AgIAABcAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-29T12:01:40.744Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-29T12:01:40.744Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "IUnitOfWork.cs",
               "DocumentMoniker": "D:\\kolya\\iti\\EnozomFinalTask\\EnozomFinalTask.Domain\\Interfaces\\IUnitOfWork.cs",
               "RelativeDocumentMoniker": "EnozomFinalTask.Domain\\Interfaces\\IUnitOfWork.cs",
@@ -125,12 +123,11 @@
               "RelativeToolTip": "EnozomFinalTask.Domain\\Interfaces\\IUnitOfWork.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-29T12:01:17.864Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-29T12:01:17.864Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "IRepository.cs",
               "DocumentMoniker": "D:\\kolya\\iti\\EnozomFinalTask\\EnozomFinalTask.Domain\\Interfaces\\IRepository.cs",
               "RelativeDocumentMoniker": "EnozomFinalTask.Domain\\Interfaces\\IRepository.cs",
@@ -138,12 +135,11 @@
               "RelativeToolTip": "EnozomFinalTask.Domain\\Interfaces\\IRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-29T12:01:14.365Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-29T12:01:14.365Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "IExportService.cs",
               "DocumentMoniker": "D:\\kolya\\iti\\EnozomFinalTask\\EnozomFinalTask.Application\\Services\\IExportService.cs",
               "RelativeDocumentMoniker": "EnozomFinalTask.Application\\Services\\IExportService.cs",
@@ -151,12 +147,11 @@
               "RelativeToolTip": "EnozomFinalTask.Application\\Services\\IExportService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-29T12:01:04.49Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-29T12:01:04.49Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "IClockifyService.cs",
               "DocumentMoniker": "D:\\kolya\\iti\\EnozomFinalTask\\EnozomFinalTask.Application\\Services\\IClockifyService.cs",
               "RelativeDocumentMoniker": "EnozomFinalTask.Application\\Services\\IClockifyService.cs",
@@ -164,18 +159,17 @@
               "RelativeToolTip": "EnozomFinalTask.Application\\Services\\IClockifyService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-29T12:00:40.394Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-29T12:00:40.394Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 0,
               "Title": "ClockifyService.cs",
               "DocumentMoniker": "D:\\kolya\\iti\\EnozomFinalTask\\EnozomFinalTask.Infrastructure\\Services\\ClockifyService.cs",
               "RelativeDocumentMoniker": "EnozomFinalTask.Infrastructure\\Services\\ClockifyService.cs",
               "ToolTip": "D:\\kolya\\iti\\EnozomFinalTask\\EnozomFinalTask.Infrastructure\\Services\\ClockifyService.cs",
               "RelativeToolTip": "EnozomFinalTask.Infrastructure\\Services\\ClockifyService.cs",
-              "ViewState": "AgIAAGwAAAAAAAAAAAAowE4AAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-29T09:03:25.707Z",
               "EditorCaption": ""
@@ -202,8 +196,7 @@
               "RelativeToolTip": "EnozomFinalTask.Infrastructure\\DependencyInjection\\InfrastructureServiceCollectionExtensions.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAgwCMAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-29T07:48:27.367Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-29T07:48:27.367Z"
             },
             {
               "$type": "Document",

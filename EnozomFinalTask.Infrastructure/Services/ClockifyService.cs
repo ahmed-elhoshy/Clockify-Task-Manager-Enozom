@@ -65,36 +65,36 @@ public class ClockifyService : IClockifyService
         return workspaces?.FirstOrDefault()?.id?.ToString();
     }
 
-    private async Task CreateOrUpdateUserInClockifyAsync(string workspaceId, Domain.Entities.User user)
-    {
-        try
-        {
+    //private async Task CreateOrUpdateUserInClockifyAsync(string workspaceId, Domain.Entities.User user)
+    //{
+    //    try
+    //    {
             
-            var response = await _httpClient.GetAsync($"{_baseUrl}/workspaces/{workspaceId}/users");
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                var users = JsonConvert.DeserializeObject<List<dynamic>>(content);
+    //        var response = await _httpClient.GetAsync($"{_baseUrl}/workspaces/{workspaceId}/users");
+    //        if (response.IsSuccessStatusCode)
+    //        {
+    //            var content = await response.Content.ReadAsStringAsync();
+    //            var users = JsonConvert.DeserializeObject<List<dynamic>>(content);
                 
-                // Check if user already exists by name (you'd typically use email)
-                var existingUser = users?.FirstOrDefault(u => u.name?.ToString() == user.FullName);
+    //            // Check if user already exists by name (you'd typically use email)
+    //            var existingUser = users?.FirstOrDefault(u => u.name?.ToString() == user.FullName);
                 
-                if (existingUser != null)
-                {
-                    _logger.LogInformation($"User {user.FullName} already exists in Clockify workspace");
-                }
-                else
-                {
-                    _logger.LogWarning($"User {user.FullName} not found in Clockify workspace. Users must be invited by email first.");
+    //            if (existingUser != null)
+    //            {
+    //                _logger.LogInformation($"User {user.FullName} already exists in Clockify workspace");
+    //            }
+    //            else
+    //            {
+    //                _logger.LogWarning($"User {user.FullName} not found in Clockify workspace. Users must be invited by email first.");
                   
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, $"Error checking user in Clockify: {user.FullName}");
-        }
-    }
+    //            }
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        _logger.LogError(ex, $"Error checking user in Clockify: {user.FullName}");
+    //    }
+    //}
 
     private async Task CreateOrUpdateProjectInClockifyAsync(string workspaceId, Domain.Entities.Project project)
     {
