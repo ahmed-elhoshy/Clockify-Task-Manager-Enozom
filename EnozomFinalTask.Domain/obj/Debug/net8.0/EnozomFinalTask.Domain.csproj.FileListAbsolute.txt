@@ -7,3 +7,4 @@ D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Domain\obj\Debug\net8.0\EnozomFinal
 D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Domain\obj\Debug\net8.0\refint\EnozomFinalTask.Domain.dll
 D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Domain\obj\Debug\net8.0\EnozomFinalTask.Domain.pdb
 D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Domain\obj\Debug\net8.0\ref\EnozomFinalTask.Domain.dll
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Domain\obj\Debug\net8.0\EnozomFinalTask.Domain.sourcelink.json

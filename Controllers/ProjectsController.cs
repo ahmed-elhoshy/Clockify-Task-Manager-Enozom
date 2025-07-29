@@ -24,7 +24,13 @@ public class ProjectsController : ControllerBase
         try
         {
             var projects = await _unitOfWork.Projects.GetAllAsync();
-            return Ok(projects);
+            var response = projects.Select(p => new ProjectResponseDto
+            {
+                Id = p.Id,
+                Name = p.Name
+            }).ToList();
+            
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -42,7 +48,32 @@ public class ProjectsController : ControllerBase
             if (project == null)
                 return NotFound(new { message = $"Project with ID {id} not found" });
 
-            return Ok(project);
+            var tasks = await _unitOfWork.Tasks.GetAllAsync();
+            var users = await _unitOfWork.Users.GetAllAsync();
+            var timeEntries = await _unitOfWork.TimeEntries.GetAllAsync();
+            
+            var projectTasks = tasks.Where(t => t.ProjectId == id).ToList();
+            var projectTimeEntries = timeEntries.Where(te => projectTasks.Any(pt => pt.Id == te.TaskItemId)).ToList();
+
+            var response = new ProjectDetailResponseDto
+            {
+                Id = project.Id,
+                Name = project.Name,
+                Tasks = projectTasks.Select(t => new TaskResponseDto
+                {
+                    Id = t.Id,
+                    Title = t.Title,
+                    EstimateHours = t.EstimateHours,
+                    ProjectId = t.ProjectId,
+                    ProjectName = project.Name,
+                    AssignedUserId = t.AssignedUserId,
+                    AssignedUserName = users.FirstOrDefault(u => u.Id == t.AssignedUserId)?.FullName ?? "Unknown"
+                }).ToList(),
+                TotalEstimatedHours = projectTasks.Sum(t => t.EstimateHours),
+                TotalTimeSpent = projectTimeEntries.Sum(te => te.DurationHours)
+            };
+
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -67,8 +98,14 @@ public class ProjectsController : ControllerBase
             await _unitOfWork.Projects.AddAsync(project);
             await _unitOfWork.SaveChangesAsync();
 
+            var response = new ProjectResponseDto
+            {
+                Id = project.Id,
+                Name = project.Name
+            };
+
             _logger.LogInformation("Project created successfully with ID {ProjectId}", project.Id);
-            return CreatedAtAction(nameof(GetProject), new { id = project.Id }, project);
+            return CreatedAtAction(nameof(GetProject), new { id = project.Id }, response);
         }
         catch (Exception ex)
         {
@@ -94,8 +131,14 @@ public class ProjectsController : ControllerBase
             await _unitOfWork.Projects.UpdateAsync(project);
             await _unitOfWork.SaveChangesAsync();
 
+            var response = new ProjectResponseDto
+            {
+                Id = project.Id,
+                Name = project.Name
+            };
+
             _logger.LogInformation("Project with ID {ProjectId} updated successfully", id);
-            return Ok(project);
+            return Ok(response);
         }
         catch (Exception ex)
         {

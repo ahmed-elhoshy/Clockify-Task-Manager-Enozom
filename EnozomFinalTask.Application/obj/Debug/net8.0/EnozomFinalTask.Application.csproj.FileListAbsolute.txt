@@ -11,3 +11,4 @@ D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\obj\Debug\net8.0\Enozom
 D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\obj\Debug\net8.0\refint\EnozomFinalTask.Application.dll
 D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\obj\Debug\net8.0\EnozomFinalTask.Application.pdb
 D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\obj\Debug\net8.0\ref\EnozomFinalTask.Application.dll
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Application\obj\Debug\net8.0\EnozomFinalTask.Application.sourcelink.json

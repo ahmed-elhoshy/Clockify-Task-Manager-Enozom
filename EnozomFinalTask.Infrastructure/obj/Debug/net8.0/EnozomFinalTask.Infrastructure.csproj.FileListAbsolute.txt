@@ -13,3 +13,4 @@ D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Infrastructure\obj\Debug\net8.0\Eno
 D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Infrastructure\obj\Debug\net8.0\refint\EnozomFinalTask.Infrastructure.dll
 D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Infrastructure\obj\Debug\net8.0\EnozomFinalTask.Infrastructure.pdb
 D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Infrastructure\obj\Debug\net8.0\ref\EnozomFinalTask.Infrastructure.dll
+D:\kolya\iti\EnozomFinalTask\EnozomFinalTask.Infrastructure\obj\Debug\net8.0\EnozomFinalTask.Infrastructure.sourcelink.json

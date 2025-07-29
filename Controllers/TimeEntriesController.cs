@@ -24,7 +24,22 @@ public class TimeEntriesController : ControllerBase
         try
         {
             var timeEntries = await _unitOfWork.TimeEntries.GetAllAsync();
-            return Ok(timeEntries);
+            var tasks = await _unitOfWork.Tasks.GetAllAsync();
+            var users = await _unitOfWork.Users.GetAllAsync();
+
+            var response = timeEntries.Select(te => new TimeEntryResponseDto
+            {
+                Id = te.Id,
+                Start = te.Start,
+                End = te.End,
+                DurationHours = te.DurationHours,
+                TaskItemId = te.TaskItemId,
+                TaskTitle = tasks.FirstOrDefault(t => t.Id == te.TaskItemId)?.Title ?? "Unknown",
+                UserId = te.UserId,
+                UserName = users.FirstOrDefault(u => u.Id == te.UserId)?.FullName ?? "Unknown"
+            }).ToList();
+
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -42,7 +57,22 @@ public class TimeEntriesController : ControllerBase
             if (timeEntry == null)
                 return NotFound(new { message = $"Time entry with ID {id} not found" });
 
-            return Ok(timeEntry);
+            var task = await _unitOfWork.Tasks.GetByIdAsync(timeEntry.TaskItemId);
+            var user = await _unitOfWork.Users.GetByIdAsync(timeEntry.UserId);
+
+            var response = new TimeEntryResponseDto
+            {
+                Id = timeEntry.Id,
+                Start = timeEntry.Start,
+                End = timeEntry.End,
+                DurationHours = timeEntry.DurationHours,
+                TaskItemId = timeEntry.TaskItemId,
+                TaskTitle = task?.Title ?? "Unknown",
+                UserId = timeEntry.UserId,
+                UserName = user?.FullName ?? "Unknown"
+            };
+
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -61,9 +91,22 @@ public class TimeEntriesController : ControllerBase
                 return NotFound(new { message = $"Task with ID {taskId} not found" });
 
             var timeEntries = await _unitOfWork.TimeEntries.GetAllAsync();
+            var users = await _unitOfWork.Users.GetAllAsync();
             var taskTimeEntries = timeEntries.Where(te => te.TaskItemId == taskId).ToList();
             
-            return Ok(taskTimeEntries);
+            var response = taskTimeEntries.Select(te => new TimeEntryResponseDto
+            {
+                Id = te.Id,
+                Start = te.Start,
+                End = te.End,
+                DurationHours = te.DurationHours,
+                TaskItemId = te.TaskItemId,
+                TaskTitle = task.Title,
+                UserId = te.UserId,
+                UserName = users.FirstOrDefault(u => u.Id == te.UserId)?.FullName ?? "Unknown"
+            }).ToList();
+            
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -82,9 +125,22 @@ public class TimeEntriesController : ControllerBase
                 return NotFound(new { message = $"User with ID {userId} not found" });
 
             var timeEntries = await _unitOfWork.TimeEntries.GetAllAsync();
+            var tasks = await _unitOfWork.Tasks.GetAllAsync();
             var userTimeEntries = timeEntries.Where(te => te.UserId == userId).ToList();
             
-            return Ok(userTimeEntries);
+            var response = userTimeEntries.Select(te => new TimeEntryResponseDto
+            {
+                Id = te.Id,
+                Start = te.Start,
+                End = te.End,
+                DurationHours = te.DurationHours,
+                TaskItemId = te.TaskItemId,
+                TaskTitle = tasks.FirstOrDefault(t => t.Id == te.TaskItemId)?.Title ?? "Unknown",
+                UserId = te.UserId,
+                UserName = user.FullName
+            }).ToList();
+            
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -126,8 +182,21 @@ public class TimeEntriesController : ControllerBase
             await _unitOfWork.TimeEntries.AddAsync(timeEntry);
             await _unitOfWork.SaveChangesAsync();
 
+            // Create clean response DTO
+            var response = new TimeEntryResponseDto
+            {
+                Id = timeEntry.Id,
+                Start = timeEntry.Start,
+                End = timeEntry.End,
+                DurationHours = timeEntry.DurationHours,
+                TaskItemId = timeEntry.TaskItemId,
+                TaskTitle = task.Title,
+                UserId = timeEntry.UserId,
+                UserName = user.FullName
+            };
+
             _logger.LogInformation("Time entry created successfully with ID {TimeEntryId}", timeEntry.Id);
-            return CreatedAtAction(nameof(GetTimeEntry), new { id = timeEntry.Id }, timeEntry);
+            return CreatedAtAction(nameof(GetTimeEntry), new { id = timeEntry.Id }, response);
         }
         catch (Exception ex)
         {
@@ -170,8 +239,21 @@ public class TimeEntriesController : ControllerBase
             await _unitOfWork.TimeEntries.UpdateAsync(timeEntry);
             await _unitOfWork.SaveChangesAsync();
 
+            // Create clean response DTO
+            var response = new TimeEntryResponseDto
+            {
+                Id = timeEntry.Id,
+                Start = timeEntry.Start,
+                End = timeEntry.End,
+                DurationHours = timeEntry.DurationHours,
+                TaskItemId = timeEntry.TaskItemId,
+                TaskTitle = task.Title,
+                UserId = timeEntry.UserId,
+                UserName = user.FullName
+            };
+
             _logger.LogInformation("Time entry with ID {TimeEntryId} updated successfully", id);
-            return Ok(timeEntry);
+            return Ok(response);
         }
         catch (Exception ex)
         {

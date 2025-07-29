@@ -105,10 +105,11 @@ D:\kolya\iti\EnozomFinalTask\obj\Debug\net8.0\staticwebassets\msbuild.build.Enoz
 D:\kolya\iti\EnozomFinalTask\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.EnozomFinalTask.props
 D:\kolya\iti\EnozomFinalTask\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.EnozomFinalTask.props
 D:\kolya\iti\EnozomFinalTask\obj\Debug\net8.0\staticwebassets.pack.json
-D:\kolya\iti\EnozomFinalTask\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\kolya\iti\EnozomFinalTask\obj\Debug\net8.0\EnozomFi.E25A8302.Up2Date
 D:\kolya\iti\EnozomFinalTask\obj\Debug\net8.0\EnozomFinalTask.dll
 D:\kolya\iti\EnozomFinalTask\obj\Debug\net8.0\refint\EnozomFinalTask.dll
 D:\kolya\iti\EnozomFinalTask\obj\Debug\net8.0\EnozomFinalTask.pdb
 D:\kolya\iti\EnozomFinalTask\obj\Debug\net8.0\EnozomFinalTask.genruntimeconfig.cache
 D:\kolya\iti\EnozomFinalTask\obj\Debug\net8.0\ref\EnozomFinalTask.dll
+D:\kolya\iti\EnozomFinalTask\obj\Debug\net8.0\EnozomFinalTask.sourcelink.json
+D:\kolya\iti\EnozomFinalTask\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

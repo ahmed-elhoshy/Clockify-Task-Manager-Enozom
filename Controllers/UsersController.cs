@@ -24,7 +24,13 @@ public class UsersController : ControllerBase
         try
         {
             var users = await _unitOfWork.Users.GetAllAsync();
-            return Ok(users);
+            var response = users.Select(u => new UserResponseDto
+            {
+                Id = u.Id,
+                FullName = u.FullName
+            }).ToList();
+            
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -42,7 +48,42 @@ public class UsersController : ControllerBase
             if (user == null)
                 return NotFound(new { message = $"User with ID {id} not found" });
 
-            return Ok(user);
+            var tasks = await _unitOfWork.Tasks.GetAllAsync();
+            var projects = await _unitOfWork.Projects.GetAllAsync();
+            var timeEntries = await _unitOfWork.TimeEntries.GetAllAsync();
+            
+            var userTasks = tasks.Where(t => t.AssignedUserId == id).ToList();
+            var userTimeEntries = timeEntries.Where(te => te.UserId == id).ToList();
+
+            var response = new UserDetailResponseDto
+            {
+                Id = user.Id,
+                FullName = user.FullName,
+                AssignedTasks = userTasks.Select(t => new TaskResponseDto
+                {
+                    Id = t.Id,
+                    Title = t.Title,
+                    EstimateHours = t.EstimateHours,
+                    ProjectId = t.ProjectId,
+                    ProjectName = projects.FirstOrDefault(p => p.Id == t.ProjectId)?.Name ?? "Unknown",
+                    AssignedUserId = t.AssignedUserId,
+                    AssignedUserName = user.FullName
+                }).ToList(),
+                TimeEntries = userTimeEntries.Select(te => new TimeEntryResponseDto
+                {
+                    Id = te.Id,
+                    Start = te.Start,
+                    End = te.End,
+                    DurationHours = te.DurationHours,
+                    TaskItemId = te.TaskItemId,
+                    TaskTitle = tasks.FirstOrDefault(t => t.Id == te.TaskItemId)?.Title ?? "Unknown",
+                    UserId = te.UserId,
+                    UserName = user.FullName
+                }).ToList(),
+                TotalTimeSpent = userTimeEntries.Sum(te => te.DurationHours)
+            };
+
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -67,8 +108,14 @@ public class UsersController : ControllerBase
             await _unitOfWork.Users.AddAsync(user);
             await _unitOfWork.SaveChangesAsync();
 
+            var response = new UserResponseDto
+            {
+                Id = user.Id,
+                FullName = user.FullName
+            };
+
             _logger.LogInformation("User created successfully with ID {UserId}", user.Id);
-            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, response);
         }
         catch (Exception ex)
         {
@@ -94,8 +141,14 @@ public class UsersController : ControllerBase
             await _unitOfWork.Users.UpdateAsync(user);
             await _unitOfWork.SaveChangesAsync();
 
+            var response = new UserResponseDto
+            {
+                Id = user.Id,
+                FullName = user.FullName
+            };
+
             _logger.LogInformation("User with ID {UserId} updated successfully", id);
-            return Ok(user);
+            return Ok(response);
         }
         catch (Exception ex)
         {

@@ -24,7 +24,21 @@ public class TasksController : ControllerBase
         try
         {
             var tasks = await _unitOfWork.Tasks.GetAllAsync();
-            return Ok(tasks);
+            var projects = await _unitOfWork.Projects.GetAllAsync();
+            var users = await _unitOfWork.Users.GetAllAsync();
+
+            var response = tasks.Select(t => new TaskResponseDto
+            {
+                Id = t.Id,
+                Title = t.Title,
+                EstimateHours = t.EstimateHours,
+                ProjectId = t.ProjectId,
+                ProjectName = projects.FirstOrDefault(p => p.Id == t.ProjectId)?.Name ?? "Unknown",
+                AssignedUserId = t.AssignedUserId,
+                AssignedUserName = users.FirstOrDefault(u => u.Id == t.AssignedUserId)?.FullName ?? "Unknown"
+            }).ToList();
+
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -42,7 +56,33 @@ public class TasksController : ControllerBase
             if (task == null)
                 return NotFound(new { message = $"Task with ID {id} not found" });
 
-            return Ok(task);
+            var project = await _unitOfWork.Projects.GetByIdAsync(task.ProjectId);
+            var user = await _unitOfWork.Users.GetByIdAsync(task.AssignedUserId);
+            var timeEntries = await _unitOfWork.TimeEntries.GetAllAsync();
+            var taskTimeEntries = timeEntries.Where(te => te.TaskItemId == task.Id).ToList();
+
+            var response = new TaskDetailResponseDto
+            {
+                Id = task.Id,
+                Title = task.Title,
+                EstimateHours = task.EstimateHours,
+                Project = new ProjectResponseDto { Id = project.Id, Name = project.Name },
+                AssignedUser = new UserResponseDto { Id = user.Id, FullName = user.FullName },
+                TimeEntries = taskTimeEntries.Select(te => new TimeEntryResponseDto
+                {
+                    Id = te.Id,
+                    Start = te.Start,
+                    End = te.End,
+                    DurationHours = te.DurationHours,
+                    TaskItemId = te.TaskItemId,
+                    TaskTitle = task.Title,
+                    UserId = te.UserId,
+                    UserName = user.FullName
+                }).ToList(),
+                TotalTimeSpent = taskTimeEntries.Sum(te => te.DurationHours)
+            };
+
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -61,9 +101,21 @@ public class TasksController : ControllerBase
                 return NotFound(new { message = $"Project with ID {projectId} not found" });
 
             var tasks = await _unitOfWork.Tasks.GetAllAsync();
+            var users = await _unitOfWork.Users.GetAllAsync();
             var projectTasks = tasks.Where(t => t.ProjectId == projectId).ToList();
             
-            return Ok(projectTasks);
+            var response = projectTasks.Select(t => new TaskResponseDto
+            {
+                Id = t.Id,
+                Title = t.Title,
+                EstimateHours = t.EstimateHours,
+                ProjectId = t.ProjectId,
+                ProjectName = project.Name,
+                AssignedUserId = t.AssignedUserId,
+                AssignedUserName = users.FirstOrDefault(u => u.Id == t.AssignedUserId)?.FullName ?? "Unknown"
+            }).ToList();
+            
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -82,9 +134,21 @@ public class TasksController : ControllerBase
                 return NotFound(new { message = $"User with ID {userId} not found" });
 
             var tasks = await _unitOfWork.Tasks.GetAllAsync();
+            var projects = await _unitOfWork.Projects.GetAllAsync();
             var userTasks = tasks.Where(t => t.AssignedUserId == userId).ToList();
             
-            return Ok(userTasks);
+            var response = userTasks.Select(t => new TaskResponseDto
+            {
+                Id = t.Id,
+                Title = t.Title,
+                EstimateHours = t.EstimateHours,
+                ProjectId = t.ProjectId,
+                ProjectName = projects.FirstOrDefault(p => p.Id == t.ProjectId)?.Name ?? "Unknown",
+                AssignedUserId = t.AssignedUserId,
+                AssignedUserName = user.FullName
+            }).ToList();
+            
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -122,8 +186,20 @@ public class TasksController : ControllerBase
             await _unitOfWork.Tasks.AddAsync(task);
             await _unitOfWork.SaveChangesAsync();
 
+            // Create response DTO with clean data
+            var response = new TaskResponseDto
+            {
+                Id = task.Id,
+                Title = task.Title,
+                EstimateHours = task.EstimateHours,
+                ProjectId = task.ProjectId,
+                ProjectName = project.Name,
+                AssignedUserId = task.AssignedUserId,
+                AssignedUserName = user.FullName
+            };
+
             _logger.LogInformation("Task created successfully with ID {TaskId}", task.Id);
-            return CreatedAtAction(nameof(GetTask), new { id = task.Id }, task);
+            return CreatedAtAction(nameof(GetTask), new { id = task.Id }, response);
         }
         catch (Exception ex)
         {
@@ -162,8 +238,20 @@ public class TasksController : ControllerBase
             await _unitOfWork.Tasks.UpdateAsync(task);
             await _unitOfWork.SaveChangesAsync();
 
+            // Create response DTO with clean data
+            var response = new TaskResponseDto
+            {
+                Id = task.Id,
+                Title = task.Title,
+                EstimateHours = task.EstimateHours,
+                ProjectId = task.ProjectId,
+                ProjectName = project.Name,
+                AssignedUserId = task.AssignedUserId,
+                AssignedUserName = user.FullName
+            };
+
             _logger.LogInformation("Task with ID {TaskId} updated successfully", id);
-            return Ok(task);
+            return Ok(response);
         }
         catch (Exception ex)
         {
